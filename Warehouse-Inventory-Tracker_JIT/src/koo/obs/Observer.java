@@ -33,7 +33,11 @@ public class Observer implements StockAlert,Runnable {
       public void alertService(Product p) {
     	  if(p!=null) {
     		  System.out.println();
-    		  System.out.println("ALERT -> "+p.getProName()+"'s stock is low only "+p.getProQnty()+" are remaining");
+    		  System.out.println("     ------ Restock Alert: " + p.getProName() + " is below the reorder threshold!------");
     	  }
+      }
+      public void stopObserver() {
+    	  System.out.println("Inventory monitor has been stopped.");
+    	  run=false;
       }
 }

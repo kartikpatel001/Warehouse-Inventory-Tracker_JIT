@@ -38,18 +38,18 @@ public class WarehouseOwner {
 			System.out.println("3 Order The Product");
 			System.out.println("4 Show Product");
 			System.out.println("5 Exit");
-			System.out.println("Enter your choice");
+			System.out.println("Please enter your choice:");
 			choice = safeInt(sc);
 			sc.nextLine();
 			switch (choice) {
 			case 1: {
 				Product pro = new Product();
-				System.out.println("Enter the Product id");
+				System.out.println("Enter Product ID:");
 				pro.setProId(safeInt(sc));
 				sc.nextLine();
-				System.out.println("Enter the Product name");
+				System.out.println("Enter Product Name:");
 				pro.setProName(sc.nextLine());
-				System.out.println("Enter the Product Threshold");
+				System.out.println("Enter Reorder Threshold:");
 				pro.setReorderThreshold(safeInt(sc));
 				sc.nextLine();
 				w.addPro(pro);
@@ -60,7 +60,7 @@ public class WarehouseOwner {
 				Product pro = new Product();
 				System.out.println("Enter the Product id for Re-stock");
 				pro.setProId(safeInt(sc));
-				System.out.println("Enter the Product Qntty");
+				System.out.println("Enter Quantity:");
 				int q=safeInt(sc);
 				Thread t1=new Thread(()->w.shipmentsArrive(pro,q),"shipments-thread");
 				t1.start();
@@ -75,7 +75,7 @@ public class WarehouseOwner {
 				Product pro = new Product();
 				System.out.println("Enter the Product name");
 				pro.setProName(sc.nextLine());
-				System.out.println("Enter the Product Quntity ");
+				System.out.println("Enter Quantity:");
 				Thread t2=new Thread(()->w.fullFillOrders(pro,safeInt(sc)),"order-thread");
 				t2.start();
 				try {
@@ -91,12 +91,13 @@ public class WarehouseOwner {
 				break;
 			}
 			case 5: {
-				System.out.println("successfully exited");
+				o.stopObserver();
+				System.out.println("Application exited successfully. Thank you for using the Warehouse Inventory Tracker.");
 				System.exit(0);
 			}
 
 			default: {
-				System.out.println("Please select valid choice");
+				System.out.println("Invalid choice. Please try again.");
 			}
 			
 			}

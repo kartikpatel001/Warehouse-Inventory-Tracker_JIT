@@ -17,7 +17,6 @@ public class Warehouse {
 			l.add(pro);	
 		}
 		return l;
-		
 	}
 	public  synchronized void addPro(Product pro) {
 		
@@ -27,7 +26,7 @@ public class Warehouse {
 			System.out.println(pro.getProName()+" is successfully added");
 			}
 			else {
-				System.out.println("this product id is already present ID:- "+m.get(pro.getProId()).getProId()+" and Name:-"+m.get(pro.getProId()).getProName());
+				System.out.println("Product ID " + m.get(pro.getProId()).getProId() + " already exists for product: " + m.get(pro.getProId()).getProName());
 			}
 		}
 	}
@@ -36,14 +35,14 @@ public class Warehouse {
 		if(m.containsKey(pro.getProId())) {
 			 Product p=m.get(pro.getProId());
 			 p.setProQnty(p.getProQnty()+qnty);
-			 System.out.println("Successfully Re-Stock");
+			 System.out.println("Stock updated successfully for product: " + p.getProName());
 		}	
 		else{
-			System.out.println("Sorry Your Product is not found ");
+			System.out.println("Product not found in the warehouse.");
 		}
 		}
 		else {
-			System.out.println(Thread.currentThread()+":- please check the argument ");
+			System.out.println(Thread.currentThread().getName() + ": Invalid input. Please check the arguments.");
 		}
 	}
 	public  synchronized void fullFillOrders(Product pro,int order) {
@@ -53,25 +52,25 @@ public class Warehouse {
 	    	 if(e.getValue().getProName().equalsIgnoreCase(pro.getProName())) {
 	    		 if(e.getValue().getProQnty()>=order) {
 	    			 e.getValue().setProQnty(e.getValue().getProQnty()-order);
-	    			 System.out.println("Successfully Ordered");
+	    			 System.out.println("Order placed successfully for product: " + pro.getProName().toLowerCase());
 	    		 }
 	    		 else {
-	    			 System.out.println("Currently Out of stock sorry");
+	    			 System.out.println("Currently out of stock. Sorry, the order cannot be fulfilled.");
 	    		 }
 	    		flag=true;
 	    		break;
 	    	 }
 	     }
 		if(!flag) {
-			System.out.println("Product not found");
+			System.out.println("Product not found. Please check the product name.");
 		}
 		}
 		else {
-			System.out.println(Thread.currentThread()+":- please check the argument");
+			System.out.println(Thread.currentThread().getName() + ": Invalid input. Please check the arguments.");
 		}
 	}
 	public  synchronized void showPro() {
-		System.out.println("Available Products in Warehouse: ");
+		System.out.println("Available Products in Warehouse:");
 		System.out.println("----------------------------------------------------------------------");
 		if(!m.isEmpty()) {
 		for(Map.Entry<Integer,Product> e:m.entrySet()) {
@@ -82,10 +81,11 @@ public class Warehouse {
 			System.out.println("----------------------------------------------------------------------");
 			
 		}
-		System.out.println("Total Product :- "+m.size());
+		System.out.println("Total number of products: " + m.size());
+		System.out.println("----------------------------------------------------------------------");
 		}
 		else {
-			System.out.println("warehouse is empty");
+			System.out.println("The warehouse is currently empty.");
 		}
 		
 	}
